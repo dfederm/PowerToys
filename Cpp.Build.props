@@ -37,6 +37,8 @@
     <!-- Enable control flow guard for C++ projects that don't consume any C++ files -->
     <!-- This covers the case where a .dll exports a .lib, but doesn't have any ClCompile entries. -->
     <LinkControlFlowGuard>Guard</LinkControlFlowGuard>
+    <!-- Disable when running in a pipeline as the time to upload or download the massive .pch/.pchast to the cache is greater than the savings they provide. -->
+    <UsePrecompiledHeaders Condition="'$(TF_BUILD)' != ''">false</UsePrecompiledHeaders>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
