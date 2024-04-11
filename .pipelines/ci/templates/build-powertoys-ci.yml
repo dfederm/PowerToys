@@ -25,8 +25,11 @@ jobs:
   pool:
     demands: ImageOverride -equals SHINE-VS17-Latest
     ${{ if eq(variables['System.CollectionUri'], 'https://dev.azure.com/ms/') }}:
-      name: SHINE-OSS-L
-    ${{ if ne(variables['System.CollectionUri'], 'https://dev.azure.com/ms/') }}:
+      ${{ if eq(parameters.enableCaching, true) }}:
+        name: SHINE-OSS-L-WUS2
+      ${{ else }}:
+        name: SHINE-OSS-L
+    ${{ else }}:
       name: SHINE-INT-L
   timeoutInMinutes: 120
   strategy:
